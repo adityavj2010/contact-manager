@@ -6,46 +6,37 @@
     </div>
     <div class="col-lg-4 d-none d-lg-block">
     </div>
-    <div class="col-lg-4">
-        <button type="button" [routerLink]="['add-user']" class="mb-2 mt-2 btn btn-primary">
+    <div class="col-lg-4 text-right">
+        <a type="button" [routerLink]="['/add-user']" class="mb-2 mt-2 btn btn-primary">
             Add New Contact
-        </button>
+        </a>
     </div>
 </div>
 
-<div class="mb-2 mt-2">
+<a (click)="delete()">del</a>
+<div class="mb-2 mt-2 overflow-auto">
     <table class="table table-bordered">
         <thead>
             <tr>
+                <th scope="col"><input type="checkbox" (click)="toggleSelectAll($event)"></th>
+                <th scope="col">Phone Number</th>
                 <th scope="col">First Name</th>
                 <th scope="col">Last Name</th>
-                <th scope="col">Phone Number</th>
                 <th scope="col">Email</th>
                 <th scope="col">Status</th>
             </tr>
         </thead>
-        <tbody>
-            <tr>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>8979798</td>
-                <td>asd@sd.com</td>
-                <td>Active</td>
-            </tr>
-            <tr>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>98088</td>
-                <td>asd@sd.com</td>
-                <td>Active</td>
-            </tr>
-            <tr>
-                <td>Larry the Bird</td>
-                <td>Larry the Bird</td>
-                <td>@twitter</td>
-                <td>asd@sd.com</td>
-                <td>Active</td>
-            </tr>
+        <tbody #tbody>
+            <ng-container *ngFor="let user of userList">
+                <tr>
+                    <td><input [attr.identifier] = "user.phoneNumber" type="checkbox" /></td>
+                    <td>{{user.phoneNumber || 'N.A'}}</td>
+                    <td>{{user.firstName || 'N.A'}}</td>
+                    <td>{{user.lastName || 'N.A'}}</td>
+                    <td>{{user.email || 'N.A'}}</td>
+                    <td>{{user.isActive || 'N.A'}}</td>
+                </tr>
+            </ng-container>    
         </tbody>
     </table>
 </div>

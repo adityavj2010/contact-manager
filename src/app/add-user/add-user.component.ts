@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../services/user.service';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-add-user',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddUserComponent implements OnInit {
 
-  constructor() { }
+  isLoading: boolean = false
+  constructor(private userService:UserService ) { }
 
   ngOnInit() {
   }
 
+  addUser($event) {
+    console.warn("Received User",$event)
+    this.isLoading = true
+    this.userService.addUser($event).then(()=>{
+      this.isLoading = false
+    }).catch((data)=>{
+      this.isLoading = false
+    })
+  }
 }
