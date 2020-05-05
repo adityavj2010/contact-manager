@@ -15,7 +15,7 @@ const routes: Routes = [
     component: UserListComponent
   },
   {
-    path: 'edit-user',
+    path: 'edit-user/:phoneNumber',
     component: EditUserComponent
   },
   {

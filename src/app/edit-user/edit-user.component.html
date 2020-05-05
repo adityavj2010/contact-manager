@@ -1,1 +1,1 @@
-<app-user-form  [userData]="user" (submitData)="addUser($event)"></app-user-form>
+<app-user-form [isLoading]="isLoading" [buttonText]="'Update'" [userData]="user" (submitData)="editUser($event)"></app-user-form>

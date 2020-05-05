@@ -7,58 +7,61 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.css']
 })
-export class UserFormComponent implements OnInit,OnChanges {
+export class UserFormComponent implements OnInit, OnChanges {
 
-  @Input() userData:User;
-  @Output() submitData:EventEmitter<User> = new EventEmitter()
+  @Input() userData: User;
+  @Output() submitData: EventEmitter<User> = new EventEmitter()
+  @Input() buttonText: string = "Create";
+  @Input() isLoading: boolean = false;
+  isEditForm:boolean = false
 
   userForm: FormGroup = new FormGroup({
-    "phoneNumber" : new FormControl('',[Validators.required,Validators.pattern('[0-9]*'),Validators.minLength(10),Validators.maxLength(10)]),
-    "isActive": new FormControl(true,Validators.required),
+    "phoneNumber": new FormControl('', [Validators.required, Validators.pattern("[0-9]*"), Validators.minLength(10), Validators.maxLength(10)]),
+    "isActive": new FormControl(true, Validators.required),
     "firstName": new FormControl(""),
     "lastName": new FormControl(""),
-    "email": new FormControl("",[Validators.required])
+    "email": new FormControl("", [Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")])
+
   })
-  constructor() { }
+  constructor() { 
+  }
 
   ngOnInit() {
   }
 
-  ngOnChanges(changes:SimpleChanges) {
-    //Load form
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.userData && changes.userData.currentValue.phoneNumber && !changes.userData.previousValue) {
+      this.userForm.patchValue(changes.userData.currentValue)
+      this.isEditForm = true
+    }
   }
 
   submitForm() {
     this.userForm.markAllAsTouched()
-    console.warn(this.userForm)
-    if(!this.userForm.valid)
-    {
+    if (!this.userForm.valid) {
       return
     }
     this.submitData.emit(this.userForm.value)
   }
 
-  getErrorMessage(controlName) {
-    if(!this.userForm.get(controlName).touched)
-    {
-      return 
+  getErrorMessage(controlName, displayName = undefined) {
+    if (!displayName) {
+      displayName = controlName
+    }
+    if (!this.userForm.get(controlName).touched) {
+      return
     }
     const errors = this.userForm.get(controlName).errors
-    if(errors && Object.keys(errors).length>=1)
-    {
-      if(errors.required) {
+    if (errors && Object.keys(errors).length >= 1) {
+      if (errors.required) {
         return "This field is required."
       }
-      if(errors.maxlength) {
-        return "Max Length Crossed"
+      if (errors.pattern) {
+        return "Invalid " + displayName + "."
       }
-      if(errors.minlength) {
-        return "Min Length Crossed"
+      if (errors.minlength || errors.maxlength) {
+        return "Invalid length."
       }
-      if(errors.patterm) {
-        return "Invalid Pattern"
-      }
-
 
     }
   }

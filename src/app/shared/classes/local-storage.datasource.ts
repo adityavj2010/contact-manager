@@ -17,7 +17,7 @@ export class LocalStorageDataSource implements DataSource {
         return this.userList$.asObservable()
     }
 
-    addUser(user: User): Promise<Function> {
+    addUser(user: User): Promise<string> {
         return new Promise((resolve, reject) => {
             let userList = this.userList$.value
             if (this.userIndex(user) !== -1) {
@@ -26,7 +26,7 @@ export class LocalStorageDataSource implements DataSource {
             else {
                 userList.push(user)
                 this.updateUserList(userList)
-                resolve()
+                resolve("User Added to the contact list successfully!")
             }
         })
     }
@@ -41,7 +41,7 @@ export class LocalStorageDataSource implements DataSource {
             else {
                 userList[userIndex] = user
                 this.updateUserList(userList)
-                resolve()
+                resolve("User updated successfully!")
             }
         })
     }
@@ -56,7 +56,7 @@ export class LocalStorageDataSource implements DataSource {
             else {
                 userList.splice(userIndex, 1)
                 this.updateUserList(userList)
-                resolve()
+                resolve("User has been deleted.")
             }
         })
 

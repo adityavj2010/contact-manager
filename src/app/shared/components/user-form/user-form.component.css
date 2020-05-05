@@ -2,3 +2,9 @@
     content:"*";
     color:red;
 }
+
+.spinner-border {
+    width: 1.2rem;
+    height: 1.2rem;
+    /* border: .10em solid currentColor; */
+}

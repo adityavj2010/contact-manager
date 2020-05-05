@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { User } from '../models/user.model';
+import { ActivatedRoute } from '@angular/router';
+import { concat } from 'rxjs';
 
 @Component({
   selector: 'app-edit-user',
@@ -9,16 +11,21 @@ import { User } from '../models/user.model';
 })
 export class EditUserComponent implements OnInit {
 
-  phoneNumber:string = "8855019299"
-  constructor(private userService:UserService) { }
-  user:User = null
-  ngOnInit() {
-    this.userService.getUsers().subscribe(users=>{
-      this.user = users.find(u=>u.phoneNumber===this.phoneNumber)
+  user: User = null;
+  isLoading:boolean = false;
+
+  constructor(private userService: UserService, private route: ActivatedRoute) {
+    this.route.params.subscribe((params) => {
+      this.userService.getUsers().subscribe(users => {
+        this.user = users.find(u => u.phoneNumber === params.phoneNumber)
+      })
     })
   }
 
-  editUser(user){
+  ngOnInit() {
+  }
+
+  editUser(user) {
     this.userService.editUser(user).then().catch()
   }
 

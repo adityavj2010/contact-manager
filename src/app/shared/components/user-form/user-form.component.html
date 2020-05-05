@@ -1,6 +1,7 @@
 
 
 <form [formGroup]="userForm" (ngSubmit)="submitForm()">
+    
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
@@ -17,15 +18,15 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label class="required" for="email">Email</label>
-                <input type="email" class="form-control" id="email" formControlName="lastName">
-                <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+                <input type="email" class="form-control" id="email" formControlName="email">
+                <small *ngIf="getErrorMessage('email')" class="form-text text-danger">{{getErrorMessage('email','Email')}}</small>
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
                 <label class="required" for="phoneNumber">Phone Number</label>
-                <input type="tel" class="form-control" id="phoneNumber" formControlName="phoneNumber">
-                <small *ngIf="getErrorMessage('phoneNumber')" class="form-text text-danger">{{getErrorMessage('phoneNumber')}}</small>
+                <input type="tel" class="form-control" id="phoneNumber" formControlName="phoneNumber" [readonly]="isEditForm">
+                <small *ngIf="getErrorMessage('phoneNumber')" class="form-text text-danger">{{getErrorMessage('phoneNumber','Phone Number')}}</small>
             </div>
         </div>
         <div class="col-md-6">
@@ -39,9 +40,11 @@
               </div>
         </div>
         <div class="col-md-12 text-right">
-            <button type="submit" class="mb-2 mt-2 btn btn-primary">
-                Create
+            <button [disabled]="isLoading" type="submit" class="mb-2 mt-2 btn btn-primary">
+                {{buttonText}}
+                <div *ngIf="isLoading" class="spinner-border">
+                    <span class="sr-only"></span>
+                </div>
             </button>
         </div>
     </div>
-</form>

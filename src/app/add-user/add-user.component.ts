@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
-import { FormGroup, FormControl } from '@angular/forms';
+
+function sleeper(ms) {
+  return function(x) {
+    return new Promise(resolve => setTimeout(() => resolve(x), ms));
+  };
+}
 
 @Component({
   selector: 'app-add-user',
@@ -10,18 +15,25 @@ import { FormGroup, FormControl } from '@angular/forms';
 export class AddUserComponent implements OnInit {
 
   isLoading: boolean = false
+  errorMessage:string = ''
+  message:string = ''
+
   constructor(private userService:UserService ) { }
 
   ngOnInit() {
   }
 
   addUser($event) {
-    console.warn("Received User",$event)
     this.isLoading = true
-    this.userService.addUser($event).then(()=>{
+    this.message= ''
+    this.errorMessage = ''
+    this.userService.addUser($event).then(sleeper(1000)).then((message)=>{
       this.isLoading = false
-    }).catch((data)=>{
+      const text:any = message
+      this.message = text
+    }).catch((err)=>{
       this.isLoading = false
+      this.errorMessage = err
     })
   }
 }
