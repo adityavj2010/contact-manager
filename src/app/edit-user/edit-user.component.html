@@ -1,1 +1,8 @@
+<div *ngIf="message" class="alert alert-success" role="alert">
+    {{message}}
+</div>
+<div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+    {{errorMessage}}
+</div>
+
 <app-user-form [isLoading]="isLoading" [buttonText]="'Update'" [userData]="user" (submitData)="editUser($event)"></app-user-form>

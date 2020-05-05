@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
-
-function sleeper(ms) {
-  return function(x) {
-    return new Promise(resolve => setTimeout(() => resolve(x), ms));
-  };
-}
+import { sleeper } from '../shared/helpers/misc.helpers';
 
 @Component({
   selector: 'app-add-user',
@@ -23,11 +18,11 @@ export class AddUserComponent implements OnInit {
   ngOnInit() {
   }
 
-  addUser($event) {
+  addUser(user) {
     this.isLoading = true;
     this.message = '';
     this.errorMessage = '';
-    this.userService.addUser($event).then(sleeper(1000)).then((message) => {
+    this.userService.addUser(user).then(sleeper(1000)).then((message) => {
       this.isLoading = false;
       const text: any = message;
       this.message = text;

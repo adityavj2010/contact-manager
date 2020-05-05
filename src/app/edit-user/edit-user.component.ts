@@ -3,6 +3,7 @@ import { UserService } from '../services/user.service';
 import { User } from '../models/user.model';
 import { ActivatedRoute } from '@angular/router';
 import { concat } from 'rxjs';
+import { sleeper } from '../shared/helpers/misc.helpers';
 
 @Component({
   selector: 'app-edit-user',
@@ -13,6 +14,9 @@ export class EditUserComponent implements OnInit {
 
   user: User = null;
   isLoading = false;
+
+  errorMessage = '';
+  message = '';
 
   constructor(private userService: UserService, private route: ActivatedRoute) {
     this.route.params.subscribe((params) => {
@@ -26,7 +30,15 @@ export class EditUserComponent implements OnInit {
   }
 
   editUser(user) {
-    this.userService.editUser(user).then().catch();
+    this.isLoading = true
+    this.userService.editUser(user).then(sleeper(1000)).then((message) => {
+      this.isLoading = false;
+      const text: any = message;
+      this.message = text;
+    }).catch((err) => {
+      this.isLoading = false;
+      this.errorMessage = err;
+    });
   }
 
 }

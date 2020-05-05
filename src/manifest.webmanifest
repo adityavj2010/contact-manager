@@ -1,6 +1,6 @@
 {
-  "name": "contacts",
-  "short_name": "contacts",
+  "name": "Contacts Manager",
+  "short_name": "Contacts",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
