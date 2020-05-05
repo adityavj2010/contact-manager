@@ -9,6 +9,8 @@ import { UserService } from './services/user.service';
 import { AddUserComponent } from './add-user/add-user.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { UserFormComponent } from './shared/components/user-form/user-form.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { UserFormComponent } from './shared/components/user-form/user-form.compo
   BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [UserService],
   bootstrap: [AppComponent]
