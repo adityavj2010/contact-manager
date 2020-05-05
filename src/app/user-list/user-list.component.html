@@ -1,19 +1,15 @@
 <div class="row">
-    <div class="col-lg-4">
-        <div class="input-group mb-2 mt-2">
-            <input type="text" class="form-control" placeholder="Search">
-        </div>
+    <div class="col">
+        <button type="button" (click)="delete()" class="mb-2 mt-2 btn btn-danger">
+            Delete
+        </button>
     </div>
-    <div class="col-lg-4 d-none d-lg-block">
-    </div>
-    <div class="col-lg-4 text-right">
+    <div class="col text-right">
         <a type="button" [routerLink]="['/add-user']" class="mb-2 mt-2 btn btn-primary">
             Add New Contact
         </a>
     </div>
 </div>
-
-<a (click)="delete()">del</a>
 <div class="mb-2 mt-2 overflow-auto">
     <table class="table table-bordered">
         <thead>
@@ -29,14 +25,19 @@
         <tbody #tbody>
             <ng-container *ngFor="let user of userList">
                 <tr>
-                    <td><input [attr.identifier] = "user.phoneNumber" type="checkbox" /></td>
-                    <td>{{user.phoneNumber || 'N.A'}}</td>
+                    <td><input [attr.identifier]="user.phoneNumber" type="checkbox" /></td>
+                    <td><a [routerLink]="['/edit-user']">{{user.phoneNumber}}</a></td>
                     <td>{{user.firstName || 'N.A'}}</td>
                     <td>{{user.lastName || 'N.A'}}</td>
                     <td>{{user.email || 'N.A'}}</td>
                     <td>{{user.isActive || 'N.A'}}</td>
                 </tr>
-            </ng-container>    
+            </ng-container>
+            <ng-container *ngIf="userList.length===0">
+                <tr>
+                    <td class="text-center" colspan="6">No contacts present!!!</td>
+                </tr>
+            </ng-container>
         </tbody>
     </table>
 </div>

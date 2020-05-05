@@ -38,5 +38,24 @@ export class UserListComponent implements OnInit {
         toDelete.push(inputs[i].getAttribute('identifier'))
       }
     }
+    if(toDelete.length===0)
+    {
+      return
+    }
+    let phoneNumberToDelete = toDelete.join(', ')
+    if(confirm("Are you sure you want to delete the following numbers?" + phoneNumberToDelete) )
+    {
+     let toDeletePromiseList:Array<Promise<string>> = []
+     toDelete.forEach((number)=>{
+        toDeletePromiseList.push(this.userService.deleteUser({phoneNumber:number,isActive:true}))
+        
+     })
+     Promise.all(toDeletePromiseList).then(()=>{
+
+     }).catch(err=>{
+       console.warn("err",err)
+     })
+     
+    }
   }
 }

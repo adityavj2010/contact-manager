@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../services/user.service';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-edit-user',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditUserComponent implements OnInit {
 
-  constructor() { }
-
+  phoneNumber:string = "8855019299"
+  constructor(private userService:UserService) { }
+  user:User = null
   ngOnInit() {
+    this.userService.getUsers().subscribe(users=>{
+      this.user = users.find(u=>u.phoneNumber===this.phoneNumber)
+    })
+  }
+
+  editUser(user){
+    this.userService.editUser(user).then().catch()
   }
 
 }
