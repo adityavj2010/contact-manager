@@ -14,26 +14,26 @@ function sleeper(ms) {
 })
 export class AddUserComponent implements OnInit {
 
-  isLoading: boolean = false
-  errorMessage:string = ''
-  message:string = ''
+  isLoading = false;
+  errorMessage = '';
+  message = '';
 
-  constructor(private userService:UserService ) { }
+  constructor(private userService: UserService ) { }
 
   ngOnInit() {
   }
 
   addUser($event) {
-    this.isLoading = true
-    this.message= ''
-    this.errorMessage = ''
-    this.userService.addUser($event).then(sleeper(1000)).then((message)=>{
-      this.isLoading = false
-      const text:any = message
-      this.message = text
-    }).catch((err)=>{
-      this.isLoading = false
-      this.errorMessage = err
-    })
+    this.isLoading = true;
+    this.message = '';
+    this.errorMessage = '';
+    this.userService.addUser($event).then(sleeper(1000)).then((message) => {
+      this.isLoading = false;
+      const text: any = message;
+      this.message = text;
+    }).catch((err) => {
+      this.isLoading = false;
+      this.errorMessage = err;
+    });
   }
 }

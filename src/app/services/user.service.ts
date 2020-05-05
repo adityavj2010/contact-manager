@@ -4,6 +4,6 @@ import { LocalStorageDataSource } from '../shared/classes/local-storage.datasour
 @Injectable({
   providedIn: 'root'
 })
-export class UserService extends LocalStorageDataSource{
+export class UserService extends LocalStorageDataSource {
 
 }

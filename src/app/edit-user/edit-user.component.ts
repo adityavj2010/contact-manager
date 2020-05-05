@@ -12,21 +12,21 @@ import { concat } from 'rxjs';
 export class EditUserComponent implements OnInit {
 
   user: User = null;
-  isLoading:boolean = false;
+  isLoading = false;
 
   constructor(private userService: UserService, private route: ActivatedRoute) {
     this.route.params.subscribe((params) => {
       this.userService.getUsers().subscribe(users => {
-        this.user = users.find(u => u.phoneNumber === params.phoneNumber)
-      })
-    })
+        this.user = users.find(u => u.phoneNumber === params.phoneNumber);
+      });
+    });
   }
 
   ngOnInit() {
   }
 
   editUser(user) {
-    this.userService.editUser(user).then().catch()
+    this.userService.editUser(user).then().catch();
   }
 
 }
