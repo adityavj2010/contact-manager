@@ -20,7 +20,7 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 ## TODO
 
-1)Adding more test cases.
-2)Adding documentation.
+  1)Adding more test cases.<br/>
+  2)Adding documentation.
 
 
