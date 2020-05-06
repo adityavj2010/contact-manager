@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { UserFormComponent } from '../shared/components/user-form/user-form.component';
 
 import { AddUserComponent } from './add-user.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 describe('AddUserComponent', () => {
   let component: AddUserComponent;
@@ -8,7 +10,8 @@ describe('AddUserComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddUserComponent ]
+      imports: [FormsModule,ReactiveFormsModule],
+      declarations: [ AddUserComponent,UserFormComponent ]
     })
     .compileComponents();
   }));

@@ -18,11 +18,13 @@ export class EditUserComponent implements OnInit {
   errorMessage = '';
   message = '';
 
-  constructor(private userService: UserService, private route: ActivatedRoute) {
+  constructor(private userService: UserService, public route: ActivatedRoute) {
     this.route.params.subscribe((params) => {
-      this.userService.getUsers().subscribe(users => {
-        this.user = users.find(u => u.phoneNumber === params.phoneNumber);
-      });
+      if (params) {
+        this.userService.getUsers().subscribe(users => {
+          this.user = users.find(u => u.phoneNumber === params.phoneNumber);
+        });
+      }
     });
   }
 

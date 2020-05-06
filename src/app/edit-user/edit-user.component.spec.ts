@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditUserComponent } from './edit-user.component';
+import { UserFormComponent } from '../shared/components/user-form/user-form.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ActivatedRoute } from '@angular/router';
+import { Observable, of } from 'rxjs';
 
 describe('EditUserComponent', () => {
   let component: EditUserComponent;
@@ -8,7 +13,14 @@ describe('EditUserComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EditUserComponent ]
+      imports: [FormsModule,ReactiveFormsModule,RouterTestingModule],
+      declarations: [ EditUserComponent,UserFormComponent ],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: { params: of({ phoneNumber: 123123122 }) }
+        }
+      ]
     })
     .compileComponents();
   }));
