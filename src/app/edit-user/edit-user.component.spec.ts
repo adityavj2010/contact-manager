@@ -5,7 +5,8 @@ import { UserFormComponent } from '../shared/components/user-form/user-form.comp
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { UserService } from '../services/user.service';
+import { of } from 'rxjs';
 
 describe('EditUserComponent', () => {
   let component: EditUserComponent;
@@ -19,6 +20,10 @@ describe('EditUserComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: { params: of({ phoneNumber: 123123122 }) }
+        },
+        {
+          provide: UserService,
+          useValue: { getUsers: ()=> of([]) }
         }
       ]
     })

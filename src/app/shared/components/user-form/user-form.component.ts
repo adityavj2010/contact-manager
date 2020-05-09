@@ -30,7 +30,7 @@ export class UserFormComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.userData && changes.userData.currentValue.phoneNumber && !changes.userData.previousValue) {
+    if (changes.userData && changes.userData.currentValue && changes.userData.currentValue.phoneNumber && !changes.userData.previousValue) {
       this.userForm.patchValue(changes.userData.currentValue);
       this.isEditForm = true;
     }
